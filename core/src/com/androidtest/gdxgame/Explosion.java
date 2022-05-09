@@ -13,8 +13,8 @@ public class Explosion {
     Music music;
     private Vector2 position;
 
-    public Explosion(String texture, Animation.PlayMode mode, int columns, int lines, int fps, String mName){
-        animation = new NewAnimation(texture, mode, columns, lines, fps);
+    public Explosion(TextureRegion region, Animation.PlayMode mode, int columns, int lines, int fps, String mName){
+        animation = new NewAnimation(region, mode, columns, lines, fps);
         music = Gdx.audio.newMusic(Gdx.files.internal(mName));
         music.play();
         position = getPosition(animation.getRegion().getRegionWidth(), animation.getRegion().getRegionHeight());
