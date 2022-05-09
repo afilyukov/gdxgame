@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -34,6 +35,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		cnt = 0;
 		batch = new SpriteBatch();
 		x = Gdx.graphics.getWidth()+100;
+
+		y = new Random().nextInt(Gdx.graphics.getHeight());
 		shapeRenderer = new ShapeRenderer();
 		mainAtlas = new TextureAtlas("atlas/main.atlas");
 		explosions = new ArrayList<>();
@@ -51,17 +54,17 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) fire=true;
 
 		headSpr = new Sprite(mainAtlas.findRegion("msTurret"));
-		Vector2 headOrigine = new Vector2(headSpr.getWidth()/2, headSpr.getRegionHeight()/2);
-		headSpr.setOrigin(headOrigine.x, headOrigine.y);
+		Vector2 headOrigin = new Vector2(headSpr.getWidth()/2, headSpr.getRegionHeight()/2);
+		headSpr.setOrigin(headOrigin.x, headOrigin.y);
 		headSpr.setScale(1);
 		headSpr.setColor(Color.PINK);
-		x -= 0.5f;
+		x -= 1f;
 		batch.begin();
-		Vector2 headPosition = new Vector2(x, y);
-		headSpr.setPosition(headPosition.x - headOrigine.x, headPosition.y - headOrigine.y);
-		//headSpr.setRotation(getAngle(headPosition)+90);
-		headSpr.draw(batch);
-		batch.end();
+			Vector2 headPosition = new Vector2(x, y);
+			headSpr.setPosition(headPosition.x - headOrigin.x, headPosition.y - headOrigin.y);
+			//headSpr.setRotation(getAngle(headPosition)+90);
+			headSpr.draw(batch);
+			batch.end();
 
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.line(getPosition().x-10, getPosition().y, getPosition().x+10, getPosition().y);
