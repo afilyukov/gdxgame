@@ -27,9 +27,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		explosions = new ArrayList<>();
-		turretAnm = new NewAnimation("turret-sprites-deployment.png", Animation.PlayMode.NORMAL, 8, 1, 8);
-		bodyAnim = new NewAnimation("turret-sprites-body.png", Animation.PlayMode.LOOP, 2, 1, 16);
-		headAnim = new NewAnimation("turret-sprites-head-shot-idle.png", Animation.PlayMode.NORMAL, 5, 1, 60);
+		turretAnm = new NewAnimation("turret-sprites-deployment.png",
+				Animation.PlayMode.NORMAL, 8, 1, 8);
+		bodyAnim = new NewAnimation("turret-sprites-body.png",
+				Animation.PlayMode.LOOP, 2, 1, 16);
+		headAnim = new NewAnimation("turret-sprites-head-shot-idle.png",
+				Animation.PlayMode.NORMAL, 5, 1, 60);
 	}
 
 	@Override
@@ -68,7 +71,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		if ((fire & !headAnim.isFinished()) || (!fire & !headAnim.isFinished())) headAnim.setTime(Gdx.graphics.getDeltaTime());
 		if (fire & headAnim.isFinished()) {
 			headAnim.resetTime();
-			explosions.add(new Explosion("79a0eceb71bb6a9939df582317038b81.png", Animation.PlayMode.NORMAL, 4, 4, 16, "370b925a30aca01.mp3"));
+			explosions.add(new Explosion("explosion2.png",
+					Animation.PlayMode.NORMAL, 5, 5, 16, "shooting.mp3"));
 		}
 		Gdx.graphics.setTitle(String.valueOf(explosions.size()));
 	}
