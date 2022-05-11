@@ -40,7 +40,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		shapeRenderer = new ShapeRenderer();
 		mainAtlas = new TextureAtlas("atlas/main.atlas");
 		explosions = new ArrayList<>();
-		turretAnm = new NewAnimation(mainAtlas.findRegion("turret-sprites-deployment"), Animation.PlayMode.NORMAL, 8, 1, 8);
+  	turretAnm = new NewAnimation(mainAtlas.findRegion("turret-sprites-deployment"), Animation.PlayMode.NORMAL, 8, 1, 8);
 		bodyAnim = new NewAnimation(mainAtlas.findRegion("turret-sprites-body"), Animation.PlayMode.LOOP, 2, 1, 16);
 		headAnim = new NewAnimation(mainAtlas.findRegion("turret-sprites-head-shot-idle"), Animation.PlayMode.NORMAL, 5, 1, 60);
 	}
