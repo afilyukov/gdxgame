@@ -1,0 +1,41 @@
+
+main.png
+size: 950, 516
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+explosion
+  rotate: false
+  xy: 2, 2
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+msTurret
+  rotate: false
+  xy: 788, 423
+  size: 60, 42
+  orig: 60, 42
+  offset: 0, 0
+  index: -1
+turret-sprites-body
+  rotate: false
+  xy: 516, 369
+  size: 108, 47
+  orig: 108, 47
+  offset: 0, 0
+  index: -1
+turret-sprites-deployment
+  rotate: false
+  xy: 516, 467
+  size: 432, 47
+  orig: 432, 47
+  offset: 0, 0
+  index: -1
+turret-sprites-head-shot-idle
+  rotate: false
+  xy: 516, 418
+  size: 270, 47
+  orig: 270, 47
+  offset: 0, 0
+  index: -1

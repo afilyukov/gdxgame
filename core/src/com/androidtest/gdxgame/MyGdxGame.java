@@ -7,40 +7,64 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	ShapeRenderer shapeRenderer;
 	NewAnimation turretAnm, bodyAnim, headAnim;
 	List<Explosion> explosions;
+	Sprite headSpr;
+	TextureAtlas mainAtlas;
+	float x, y;
+	int cnt;
 
 	@Override
 	public void create () {
+		cnt = 0;
 		batch = new SpriteBatch();
+		x = Gdx.graphics.getWidth()+100;
+
+		y = new Random().nextInt(Gdx.graphics.getHeight());
 		shapeRenderer = new ShapeRenderer();
+		mainAtlas = new TextureAtlas("atlas/main.atlas");
 		explosions = new ArrayList<>();
-		turretAnm = new NewAnimation("turret-sprites-deployment.png",
-				Animation.PlayMode.NORMAL, 8, 1, 8);
-		bodyAnim = new NewAnimation("turret-sprites-body.png",
-				Animation.PlayMode.LOOP, 2, 1, 16);
-		headAnim = new NewAnimation("turret-sprites-head-shot-idle.png",
-				Animation.PlayMode.NORMAL, 5, 1, 60);
+  	turretAnm = new NewAnimation(mainAtlas.findRegion("turret-sprites-deployment"), Animation.PlayMode.NORMAL, 8, 1, 8);
+		bodyAnim = new NewAnimation(mainAtlas.findRegion("turret-sprites-body"), Animation.PlayMode.LOOP, 2, 1, 16);
+		headAnim = new NewAnimation(mainAtlas.findRegion("turret-sprites-head-shot-idle"), Animation.PlayMode.NORMAL, 5, 1, 60);
 	}
 
 	@Override
 	public void render () {
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 		ScreenUtils.clear(Color.FOREST);
-		float rotation = 360 - MathUtils.atan2(getPosition().x-25, getPosition().y-34) * MathUtils.radiansToDegrees;
+
 		boolean fire =false;
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) fire=true;
+
+		headSpr = new Sprite(mainAtlas.findRegion("msTurret"));
+		Vector2 headOrigin = new Vector2(headSpr.getWidth()/2, headSpr.getRegionHeight()/2);
+		headSpr.setOrigin(headOrigin.x, headOrigin.y);
+		headSpr.setScale(1);
+		headSpr.setColor(Color.PINK);
+		x -= 1f;
+		batch.begin();
+			Vector2 headPosition = new Vector2(x, y);
+			headSpr.setPosition(headPosition.x - headOrigin.x, headPosition.y - headOrigin.y);
+			//headSpr.setRotation(getAngle(headPosition)+90);
+			headSpr.draw(batch);
+			batch.end();
 
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.line(getPosition().x-10, getPosition().y, getPosition().x+10, getPosition().y);
@@ -54,7 +78,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		} else {
 			bodyAnim.setTime(Gdx.graphics.getDeltaTime());
 			batch.draw(bodyAnim.getRegion(), 0, 0);
-			batch.draw(headAnim.getRegion(), 11, 12,14,22, headAnim.getRegion().getRegionWidth(),headAnim.getRegion().getRegionHeight(), 1,1,rotation,false);
+			batch.draw(headAnim.getRegion(), 11, 12,14,22, headAnim.getRegion().getRegionWidth(),headAnim.getRegion().getRegionHeight(), 1,1,getAngle(new Vector2(0,0)),false);
 		}
 		ListIterator<Explosion> iterator = explosions.listIterator();
 		while (iterator.hasNext()){
@@ -68,15 +92,19 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 		}
 		batch.end();
+
 		if ((fire & !headAnim.isFinished()) || (!fire & !headAnim.isFinished())) headAnim.setTime(Gdx.graphics.getDeltaTime());
 		if (fire & headAnim.isFinished()) {
 			headAnim.resetTime();
-			explosions.add(new Explosion("explosion2.png",
-					Animation.PlayMode.NORMAL, 5, 5, 16, "shooting.mp3"));
+			explosions.add(new Explosion(mainAtlas.findRegion("explosion"), Animation.PlayMode.NORMAL, 4, 4, 16, "boom.mp3"));
+			if (headSpr.getBoundingRectangle().contains(getPosition())){
+				x=Gdx.graphics.getWidth()+100;
+				y=MathUtils.random(0, Gdx.graphics.getHeight()-headSpr.getHeight());
+				cnt++;
+			}
 		}
-		Gdx.graphics.setTitle(String.valueOf(explosions.size()));
+		Gdx.graphics.setTitle("Спрайтов подбито: "+String.valueOf(cnt));
 	}
-
 
 	@Override
 	public void dispose () {

@@ -7,10 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class NewAnimation {
     private Animation<TextureRegion> animation;
     private float time;
-    private Texture texture;
-    public NewAnimation(String name, Animation.PlayMode mode, int columns, int lines, int fps){
-        texture = new Texture(name);
-        TextureRegion[][] tmpRegion = new TextureRegion(texture).split(texture.getWidth()/columns, texture.getHeight()/lines);
+
+    public NewAnimation(TextureRegion name, Animation.PlayMode mode, int columns, int lines, int fps){
+        TextureRegion[][] tmpRegion = name.split(name.getRegionWidth()/columns, name.getRegionHeight()/lines);
         TextureRegion[] regions = new TextureRegion[tmpRegion.length * tmpRegion[0].length];
         int cnt =0;
         for (int i = 0; i < tmpRegion.length; i++) {
@@ -27,5 +26,5 @@ public class NewAnimation {
     public void setTime(float dTime){time+=dTime;}
     public boolean isFinished(){return animation.isAnimationFinished(time);}
     public void resetTime(){time=0;}
-    public void dispose(){texture.dispose();}
+    public void dispose(){}
 }
