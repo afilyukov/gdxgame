@@ -3,11 +3,13 @@ package com.androidtest.gdxgame.screens;
 import com.androidtest.gdxgame.MyFont;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -146,6 +148,10 @@ public class MainMenu implements Screen, InputProcessor {
         if (play) {
             dispose();
             game.setScreen(new GameProc(game));
+        }
+        if (help) {
+            dispose();
+            game.setScreen(new Dialog(game));
         }
        return false;
     }

@@ -1,10 +1,18 @@
 package com.androidtest.gdxgame.screens;
 
+import static com.androidtest.gdxgame.GfxUtils.getAngle;
+import static com.androidtest.gdxgame.GfxUtils.getPosition;
+
 import com.androidtest.gdxgame.BaseEnemy;
 import com.androidtest.gdxgame.BigShip;
+import com.androidtest.gdxgame.Enemy;
 import com.androidtest.gdxgame.Explosion;
 import com.androidtest.gdxgame.NewAnimation;
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,14 +22,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-
-import static com.androidtest.gdxgame.GfxUtils.getAngle;
-import static com.androidtest.gdxgame.GfxUtils.getPosition;
 
 public class GameProc implements Screen, InputProcessor {
     final Game game;

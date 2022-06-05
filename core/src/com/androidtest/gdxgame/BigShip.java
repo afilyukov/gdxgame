@@ -1,5 +1,7 @@
 package com.androidtest.gdxgame;
 
+import static com.androidtest.gdxgame.GfxUtils.*;
+
 import com.androidtest.gdxgame.screens.GameProc;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -8,8 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.androidtest.gdxgame.GfxUtils.*;
 
 public class BigShip extends BaseEnemy{
     private List<BaseEnemy> turrets;
