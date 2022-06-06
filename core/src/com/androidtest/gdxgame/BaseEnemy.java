@@ -1,5 +1,8 @@
 package com.androidtest.gdxgame;
 
+import static com.androidtest.gdxgame.screens.GameProc.mainAtlas;
+import static com.androidtest.gdxgame.GfxUtils.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,8 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import static com.androidtest.gdxgame.GfxUtils.*;
-import static com.androidtest.gdxgame.screens.GameProc.mainAtlas;
+import java.util.Arrays;
 
 public class BaseEnemy {
     protected Vector2 position, origine;
